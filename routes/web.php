@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PainelController;
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -35,4 +36,7 @@ Route::get('/clientes', [ClientesController::class, 'showClientes'])->name('clie
 Route::get('/clientes/create', [ClientesController::class, 'showCreateClientes'])->name('clientes.create.form')->middleware('auth');
 Route::post('/clientes/create', [ClientesController::class, 'createCliente'])->name('clientes.create')->middleware('auth');
 
-
+// Relacionados ao AdminController
+Route::get('/admin/home', [AdminController::class, 'showAdmin'])
+     ->name('admin.index')
+     ->middleware(['auth', 'admin']);

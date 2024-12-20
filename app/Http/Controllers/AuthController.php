@@ -14,13 +14,18 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
 
         if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            if (Auth::user()->is_admin) {
+                return redirect()->intended('/admin/home'); 
+            }
+
             return redirect()->intended('/painel'); 
         }
 
@@ -28,7 +33,6 @@ class AuthController extends Controller
             'email' => 'Login inválido.',
         ])->withInput($request->only('email'));
     }
-
 
     public function logout(Request $request)
     {
@@ -38,6 +42,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken(); 
     
         return redirect()->route('login'); 
-    
     }
 }

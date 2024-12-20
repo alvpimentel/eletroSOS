@@ -75,13 +75,7 @@
                 <i class="bi bi-speedometer2"></i><span>Painel</span>
             </a>
             <a href="/clientes">
-                <i class="bi bi-people"></i><span>Clientes</span>
-            </a>
-            <a href="/servicos">
-                <i class="bi bi-tools"></i><span>Serviços</span>
-            </a>
-            <a href="/estoque">
-                <i class="bi bi-box-seam"></i><span>Estoque</span>
+                <i class="bi bi-people"></i><span>Usuários</span>
             </a>
             <a href="/relatorios">
                 <i class="bi bi-bar-chart"></i><span>Relatórios</span>

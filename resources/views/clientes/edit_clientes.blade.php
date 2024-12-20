@@ -17,9 +17,6 @@
                     <label for="nome" class="mb-2">Nome</label>
                     <input type="text" name="nome" id="nome" class="form-control" required>
                 </div>
-                @error('nome')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
             </div>
 
             <div class="col-md-6">
@@ -27,9 +24,6 @@
                     <label for="email" class="mb-2">Email</label>
                     <input type="email" name="email" id="email" class="form-control" required>
                 </div>
-                @error('email')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
             </div>
         </div>
 
@@ -39,9 +33,6 @@
                     <label for="telefone" class="mb-2">Telefone</label>
                     <input maxlength="11" minlength="11" type="text" name="telefone" id="telefone" class="form-control">
                 </div>
-                @error('telefone')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
             </div>
 
             <div class="col-md-6">
@@ -49,9 +40,6 @@
                     <label for="endereco" class="mb-2">Endereço</label>
                     <input type="text" name="endereco" id="endereco" class="form-control">
                 </div>
-                @error('endereco')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
             </div>
         </div>
 
@@ -64,9 +52,6 @@
                         <option value="0">Pessoa Física</option>
                         <option value="1">Pessoa Jurídica</option>
                     </select>
-                    @error('tipo_pessoa')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                    @enderror
                 </div>
             </div>
 
@@ -74,17 +59,11 @@
                 <div class="form-group" id="cpf_group" style="display: none;">
                     <label for="cpf" class="mb-2">CPF</label>
                     <input maxlength="11" minlength="11" type="text" name="cpf" id="cpf" class="form-control">
-                    @error('cpf')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                    @enderror
                 </div>
 
                 <div class="form-group" id="cnpj_group" style="display: none;">
                     <label for="cnpj" class="mb-2">CNPJ</label>
                     <input maxlength="14" minlength="14" type="text" name="cnpj" id="cnpj" class="form-control">
-                    @error('cnpj')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                    @enderror
                 </div>
             </div>
         </div>

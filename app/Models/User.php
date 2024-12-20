@@ -41,4 +41,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Define a relação com a tabela admins.
+     */
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
+    }
+
+    /**
+     * Verifica se o usuário é administrador.
+     */
+    public function getIsAdminAttribute()
+    {
+        return $this->admin()->exists();
+    }
 }
