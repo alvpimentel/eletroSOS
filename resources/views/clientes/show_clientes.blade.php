@@ -36,7 +36,7 @@
                         <td>{{ $cliente->email }}</td>
                         <td>{{ $cliente->telefone }}</td>
                         <td>
-                            <a href="#" class="btn btn-primary btn-sm">
+                            <a href="{{ route('clientes.edit.form', $cliente->id) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>
                             </a>
                             <a href="#" class="btn btn-danger btn-sm">

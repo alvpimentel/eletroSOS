@@ -74,7 +74,7 @@
             <a href="/painel">
                 <i class="bi bi-speedometer2"></i><span>Painel</span>
             </a>
-            <a href="/clientes">
+            <a href="/admin/usuarios">
                 <i class="bi bi-people"></i><span>Usuários</span>
             </a>
             <a href="/relatorios">

@@ -20,6 +20,16 @@ class ClientesController extends Controller
         return view('clientes.create_clientes');
     }
 
+    public function showEditClientes($id)
+    {
+        $cliente = Cliente::where('id', $id)
+            ->where('idUsuario', Auth::id()) 
+            ->firstOrFail(); 
+    
+        return view('clientes.edit_clientes', compact('cliente'));
+    }
+    
+
     public function createCliente(Request $request)
     {
         $request->validate([
@@ -56,5 +66,30 @@ class ClientesController extends Controller
     
         return redirect()->route('clientes')->with('success', 'Cliente criado com sucesso!');
     }
+
+    public function updateCliente(Request $request, $id)
+    {
+        $cliente = Cliente::findOrFail($id);
+    
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:clientes,email,' . $cliente->id,
+            'telefone' => 'nullable|string|max:15',
+            'endereco' => 'nullable|string|max:255',
+            'obs' => 'nullable|string',
+        ]);
+    
+        $cliente->update([
+            'nome' => $request->input('nome'),
+            'email' => $request->input('email'),
+            'telefone' => $request->input('telefone'),
+            'endereco' => $request->input('endereco'),
+            'obs' => $request->input('obs'),
+        ]);
+    
+        return redirect()->route('clientes')->with('success', 'Cliente atualizado com sucesso!');
+    }
+    
+
     
 }
