@@ -63,6 +63,43 @@
         .sidebar:hover ~ .content {
             margin-left: 250px; 
         }
+
+        /* Modal */
+        .custom-modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1050;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom-modal-content {
+            background: white;
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .modal-header .btn-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -80,11 +117,14 @@
             <a href="/servicos">
                 <i class="bi bi-tools"></i><span>Serviços</span>
             </a>
-            <a href="/estoque">
+            <a href="/materiais">
                 <i class="bi bi-box-seam"></i><span>Estoque</span>
             </a>
             <a href="/relatorios">
                 <i class="bi bi-bar-chart"></i><span>Relatórios</span>
+            </a>
+            <a href="/perfil">
+                <i class="bi bi-person"></i><span>Perfil</span>
             </a>
         </div>
 
@@ -151,6 +191,21 @@
     if (telefoneInput) {
         telefoneInput.addEventListener('input', function () {
             aplicarMascaraTelefone(telefoneInput);
+        });
+    }
+
+    function filterTable() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const table = document.querySelector('table tbody');
+        const rows = table.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const materialName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            if (materialName.includes(searchInput)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
     }
 </script>

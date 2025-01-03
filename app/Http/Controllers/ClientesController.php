@@ -12,7 +12,7 @@ class ClientesController extends Controller
     {
         $clientes = Cliente::where('idUsuario', Auth::id())->get(); 
     
-        return view('clientes.show_clientes', compact('clientes'));
+        return view('clientes.index', compact('clientes'));
     }    
 
     public function showCreateClientes()

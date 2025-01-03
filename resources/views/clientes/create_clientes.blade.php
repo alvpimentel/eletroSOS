@@ -99,7 +99,7 @@
         </div>
 
         <div class="d-flex flex-row gap-3 mt-3">
-            <button onclick="goBack();" class="btn btn-primary">Voltar</button>
+            <button onclick="goBack();" class="btn btn-secondary">Voltar</button>
             <button type="submit" class="btn btn-success">Cadastrar Cliente</button>
         </div>
     </form>

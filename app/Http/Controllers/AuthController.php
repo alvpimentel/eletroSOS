@@ -18,21 +18,30 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-
+    
         if (Auth::attempt($credentials)) {
+            if (!Auth::user()->status) {
+                Auth::logout();
+                
+                return back()->withErrors([
+                    'email' => 'Sua conta está desativada, entre em contato com o suporte.',
+                ]);
+            }
+    
             $request->session()->regenerate();
-
+    
             if (Auth::user()->is_admin) {
                 return redirect()->intended('/admin/home'); 
             }
-
+    
             return redirect()->intended('/painel'); 
         }
-
+    
         return back()->withErrors([
             'email' => 'Login inválido.',
         ])->withInput($request->only('email'));
     }
+    
 
     public function logout(Request $request)
     {

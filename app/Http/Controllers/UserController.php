@@ -11,7 +11,8 @@ class UserController extends Controller
 {
     public function showUsuarios()
     {
-        $usuarios = User::all();
+        $usuarios = User::with('admin')->get();
+    
         return view('admin.usuarios.index', compact('usuarios'));
     }
 

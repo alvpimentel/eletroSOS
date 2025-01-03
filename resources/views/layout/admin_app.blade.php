@@ -71,7 +71,7 @@
         <!-- Itens do Menu -->
         <div>
             <h4 class="text-center mb-4">ES</h4> <!-- Sigla para o título -->
-            <a href="/painel">
+            <a href="/admin/home">
                 <i class="bi bi-speedometer2"></i><span>Painel</span>
             </a>
             <a href="/admin/usuarios">
@@ -145,6 +145,21 @@
     if (telefoneInput) {
         telefoneInput.addEventListener('input', function () {
             aplicarMascaraTelefone(telefoneInput);
+        });
+    }
+
+    function filterTable() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const table = document.querySelector('table tbody');
+        const rows = table.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const materialName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            if (materialName.includes(searchInput)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
     }
 </script>

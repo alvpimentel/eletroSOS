@@ -5,14 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            color: white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .card-body {
+            background-color: white;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .alert-danger {
+            font-size: 14px;
+        }
+
+    </style>
 </head>
 <body>
-<div class="container mt-5">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header text-center">
-                    <h4>Login</h4>
+                    <h4 style="color: #000">Login</h4>
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -36,7 +81,7 @@
                             <input type="password" name="password" id="password" class="form-control" required>
                         </div>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Entrar</button>
+                            <button type="submit" style="background-color: #007bff; color: #fff" class="btn">Entrar</button>
                         </div>
                     </form>
                 </div>

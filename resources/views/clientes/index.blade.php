@@ -11,8 +11,11 @@
         </div>
     @endif
 
-    <div>
+    <div class="d-flex justify-content-between align-items-center">
         <a href="{{ route('clientes.create.form') }}" class="btn btn-success mb-3 mt-3">Cadastrar Cliente</a>
+        <div class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Pesquisar por nome" oninput="filterTable()" id="searchInput">
+        </div>
     </div>
 
     @if ($clientes->isEmpty())
@@ -38,9 +41,6 @@
                         <td>
                             <a href="{{ route('clientes.edit.form', $cliente->id) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i>
                             </a>
                         </td>
                     </tr>

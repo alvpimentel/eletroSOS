@@ -47,6 +47,9 @@
             <label for="is_admin" class="form-check-label">Usuário é Administrador</label>
         </div>
 
-        <button type="submit" class="btn btn-success">Criar Usuário</button>
+        <div class="d-flex flex-row gap-3 mt-3">
+            <button type="button" onclick="goBack()" class="btn btn-secondary">Voltar</button>
+            <button type="submit" class="btn btn-success">Criar Usuário</button>
+        </div>
     </form>
 @endsection
