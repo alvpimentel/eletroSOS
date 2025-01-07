@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Bem-vindo, Alvaro!</h1>
+        <h1>Bem-vindo</h1>
     </div>
 
     <div class="row mt-4">
