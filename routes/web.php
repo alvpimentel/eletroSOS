@@ -7,6 +7,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::get('/', function () {
 // Autenticação
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/cadastro', [AuthController::class, 'showCadastroForm'])->name('cadastro');
+Route::post('/cadastro', [UserController::class, 'createUsuarioCadastro'])->name('admin.usuarios.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Painel
@@ -49,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', [MaterialController::class, 'showPerfil'])->name('perfil.index');
     Route::put('/perfil/{id}', [MaterialController::class, 'updatePerfil'])->name('perfil.update');
 });
+
+// Companhia
+Route::post('/cadastro', [CompanyController::class, 'store'])->name('companies.store');
 
 // Admin
 Route::middleware(['auth', 'admin'])->group(function () {

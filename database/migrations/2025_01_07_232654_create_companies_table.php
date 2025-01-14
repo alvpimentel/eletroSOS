@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id(); 
             $table->string('nome'); 
             $table->text('description')->nullable(); 
-            $table->string('identifier')->unique()->nullable(); 
-            $table->string('contact_email')->nullable(); 
-            $table->string('contact_phone')->nullable(); 
+            $table->string('cnpj')->unique(); 
+            $table->string('email'); 
+            $table->string('phone')->nullable(); 
             $table->text('address')->nullable(); 
             $table->boolean('status')->default(true); 
             $table->timestamps(); 

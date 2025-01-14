@@ -12,49 +12,27 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'company_id', 
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
     /**
-     * Define a relação com a tabela admins.
+     * Define a relação entre User e Company.
      */
-    public function admin()
+    public function company()
     {
-        return $this->hasOne(Admin::class, 'user_id');
-    }
-
-    /**
-     * Verifica se o usuário é administrador.
-     */
-    public function getIsAdminAttribute()
-    {
-        return $this->admin()->exists();
+        return $this->belongsTo(Company::class, 'company_id');
     }
 }

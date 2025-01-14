@@ -83,6 +83,11 @@
                         <div class="d-grid gap-2">
                             <button type="submit" style="background-color: #007bff; color: #fff" class="btn">Entrar</button>
                         </div>
+
+                        <div class="text-center mt-3 mb-3">
+                           <a href="/cadastro"><small>Não tem uma conta? Se cadastre aqui.</small></a> 
+                        </div>
+                        
                     </form>
                 </div>
             </div>

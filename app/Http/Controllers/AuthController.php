@@ -12,6 +12,7 @@ class AuthController extends Controller
         return view('login.login'); 
     }
 
+    // Login
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -42,7 +43,7 @@ class AuthController extends Controller
         ])->withInput($request->only('email'));
     }
     
-
+    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
@@ -51,5 +52,11 @@ class AuthController extends Controller
         $request->session()->regenerateToken(); 
     
         return redirect()->route('login'); 
+    }
+
+    // Cadastro
+    public function showCadastroForm()
+    {
+        return view('cadastro.index'); 
     }
 }

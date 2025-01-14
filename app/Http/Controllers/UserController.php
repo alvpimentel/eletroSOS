@@ -49,4 +49,23 @@ class UserController extends Controller
 
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuário criado com sucesso!');
     }
+
+    public function createUsuarioCadastro(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+
+        $validated['status'] = 1;
+
+        return redirect()->route('login.login')->with('success', 'Usuário criado com sucesso!');
+    }
 }
