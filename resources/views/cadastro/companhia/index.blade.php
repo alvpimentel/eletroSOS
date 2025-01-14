@@ -70,7 +70,6 @@
                             </div>
                         @endif
                         
-                        @if (!session('company_id'))
                             <form method="POST" action="{{ route('companies.store') }}">
                                 @csrf
                                 <div class="mb-3">
@@ -108,30 +107,7 @@
                                 </div>
                                 
                             </form>
-                        @endif
 
-                        <!-- Exibir formulário de cadastro de usuário caso haja company_id -->
-                        @if (session('company_id'))
-                            <h5 class="text-center">Cadastrar Usuário Administrador</h5>
-                            <form method="POST" action="{{ route('admin.usuarios.store') }}">
-                                @csrf
-                                <input type="hidden" name="company_id" value="{{ session('company_id') }}">
-
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Senha</label>
-                                    <input type="password" name="password" id="password" class="form-control" required>
-                                </div>
-
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Cadastrar Usuário</button>
-                                </div>
-                            </form>
-                        @endif
                     </div>
                 </div>
             </div>

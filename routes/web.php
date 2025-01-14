@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CompanyController;
+use App\Models\Company;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,8 @@ Route::get('/', function () {
 // Autenticação
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/cadastro', [AuthController::class, 'showCadastroForm'])->name('cadastro');
-Route::post('/cadastro', [UserController::class, 'createUsuarioCadastro'])->name('admin.usuarios.store');
+Route::get('/cadastro/usuario', [UserController::class, 'showCadastroForm'])->name('cadastro.usuario');
+Route::post('/cadastro/usuario', [UserController::class, 'createUsuarioCadastro'])->name('usuarios.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Painel
@@ -54,7 +55,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Companhia
-Route::post('/cadastro', [CompanyController::class, 'store'])->name('companies.store');
+Route::get('/cadastro/companhia', [CompanyController::class, 'showCompanyForm'])->name('cadastro.companhia');
+Route::post('/cadastro/companhia', [CompanyController::class, 'store'])->name('companies.store');
 
 // Admin
 Route::middleware(['auth', 'admin'])->group(function () {

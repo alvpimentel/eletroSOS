@@ -7,6 +7,12 @@ use App\Models\Company;
 
 class CompanyController extends Controller
 {
+
+    public function showCompanyForm()
+    {
+        return view('cadastro.companhia.index');
+    }
+
     /**
      * Armazena uma nova companhia no banco de dados.
      */
@@ -20,12 +26,14 @@ class CompanyController extends Controller
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
-    
+        
         $validated['status'] = 1;
-    
+        
         $company = Company::create($validated);
     
-        return redirect()->back()->with('company_id', $company->id);
-    }
+        session()->put('company_id', $company->id);
+    
+        return redirect()->route('cadastro.usuario');
+    }    
     
 }

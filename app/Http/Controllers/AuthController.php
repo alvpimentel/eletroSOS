@@ -53,10 +53,4 @@ class AuthController extends Controller
     
         return redirect()->route('login'); 
     }
-
-    // Cadastro
-    public function showCadastroForm()
-    {
-        return view('cadastro.index'); 
-    }
 }

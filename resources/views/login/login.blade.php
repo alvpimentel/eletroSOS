@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="text-center mt-3 mb-3">
-                           <a href="/cadastro"><small>Não tem uma conta? Se cadastre aqui.</small></a> 
+                           <a href="/cadastro/companhia"><small>Não tem uma conta? Se cadastre aqui.</small></a> 
                         </div>
                         
                     </form>

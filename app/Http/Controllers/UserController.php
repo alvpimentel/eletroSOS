@@ -21,6 +21,11 @@ class UserController extends Controller
         return view('admin.usuarios.create'); 
     }
 
+    public function showCadastroForm()
+    {
+        return view('cadastro.usuario.index'); 
+    }
+
     public function getAllUsuarios()
     {
         $usuarios = User::whereDoesntHave('admin')->get();
@@ -56,16 +61,20 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
+            'company_id' => 'required|integer',
         ]);
 
-        $user = User::create([
+        // Pega o company_id da sessão
+        $companyId = session('company_id');
+
+        User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'status' => 1,
+            'company_id' => $companyId
         ]);
 
-        $validated['status'] = 1;
-
-        return redirect()->route('login.login')->with('success', 'Usuário criado com sucesso!');
+        return redirect()->route('login')->with('success', 'Usuário criado com sucesso!');
     }
 }
