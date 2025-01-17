@@ -10,7 +10,7 @@ class ClientesController extends Controller
 {
     public function showClientes()
     {
-        $clientes = Cliente::where('idUsuario', Auth::id())->get(); 
+        $clientes = Cliente::where('company_id', Auth::user()->company_id)->get();
     
         return view('clientes.index', compact('clientes'));
     }    
@@ -23,7 +23,7 @@ class ClientesController extends Controller
     public function showEditClientes($id)
     {
         $cliente = Cliente::where('id', $id)
-            ->where('idUsuario', Auth::id()) 
+            ->where('company_id', Auth::user()->company_id) 
             ->firstOrFail(); 
     
         return view('clientes.edit_clientes', compact('cliente'));
@@ -61,7 +61,7 @@ class ClientesController extends Controller
             'cnpj' => $request->input('cnpj'),
             'endereco' => $request->input('endereco'),
             'obs' => $request->input('obs'),
-            'idUsuario' => Auth::id(),
+            'company_id' => Auth::user()->company_id,
         ]);
     
         return redirect()->route('clientes')->with('success', 'Cliente criado com sucesso!');
