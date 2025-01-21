@@ -13,9 +13,7 @@ class MaterialController extends Controller
      */
     public function showMaterial(Request $request)
     {
-        $query = Material::where('idUsuario', Auth::id());
-
-        $materiais = $query->get();
+        $materiais = Material::where('company_id', Auth::user()->company_id)->get();
 
         return view('material.index', compact('materiais'));
     }
@@ -33,7 +31,8 @@ class MaterialController extends Controller
         Material::create([
             'nome' => $request->input('nome'),
             'qtd' => $request->input('qtd'),
-            'idUsuario' => Auth::id(),
+            'valor' => $request->input('valor'),
+            'company_id' => Auth::user()->company_id,
         ]);
 
         return redirect()->back()->with('success', 'Material criado com sucesso!');
@@ -49,11 +48,12 @@ class MaterialController extends Controller
         ]);
 
         $material = Material::where('id', $id)
-            ->where('idUsuario', Auth::id())
+            ->where('company_id', Auth::user()->company_id)
             ->firstOrFail();
 
         $material->update([
             'qtd' => $request->input('qtd'),
+            'valor' => $request->input('valor')
         ]);
 
         return redirect()->back()->with('success', 'Material atualizado com sucesso!');

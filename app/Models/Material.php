@@ -9,19 +9,19 @@ class Material extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'qtd', 'idUsuario'];
+    protected $fillable = ['nome', 'qtd', 'valor', 'company_id'];
 
     /**
-     * Relacionamento com o usuário que criou o material.
+     * Relacionamento com a companhia que criou o material.
      */
-    public function usuario()
+    public function company()
     {
-        return $this->belongsTo(User::class, 'idUsuario');
-    }
+        return $this->belongsTo(User::class, 'company_id', 'id');
+    }    
 
     public function pertenceAoUsuario($userId)
     {
-        return $this->idUsuario === $userId;
+        return $this->company_id === $userId;
     }
 
 }

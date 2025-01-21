@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CompanyController;
-use App\Models\Company;
+use App\Http\Controllers\ServicoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +52,15 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', [MaterialController::class, 'showPerfil'])->name('perfil.index');
     Route::put('/perfil/{id}', [MaterialController::class, 'updatePerfil'])->name('perfil.update');
+});
+
+//Servicos
+Route::middleware(['auth'])->group(function () {
+    Route::get('/servicos', [ServicoController::class, 'showServicos'])->name('servicos');
+    Route::get('/servicos/create', [ServicoController::class, 'showCreateServico'])->name('servicos.create.form');
+    Route::post('/servicos/create', [ServicoController::class, 'createServico'])->name('servicos.create');
+    //Route::get('/clientes/edit/{id}', [ClientesController::class, 'showEditClientes'])->name('clientes.edit.form');
+    //Route::put('/clientes/update/{id}', [ClientesController::class, 'updateCliente'])->name('clientes.update');
 });
 
 // Companhia

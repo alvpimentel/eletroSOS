@@ -39,6 +39,7 @@
                         <td>{{ $material->id }}</td>
                         <td>{{ $material->nome }}</td>
                         <td>{{ $material->qtd }}</td>
+                        <td>R${{ $material->valor }}</td>
                         <td>{{ $material->updated_at->format('d/m/Y') }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" onclick="openEditMaterialModal({{ $material->id }}, '{{ $material->nome }}', {{ $material->qtd }})">
@@ -64,10 +65,16 @@
                         <label for="nome" class="mb-1">Nome do Material</label>
                         <input type="text" name="nome" id="nome" class="form-control" required>
                     </div>
+                    
                     <div class="form-group mb-3">
                         <label for="qtd" class="mb-1">Quantidade</label>
                         <input type="number" name="qtd" id="qtd" class="form-control" required>
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label for="valor" class="mb-1">Quantidade</label>
+                        <input type="number" step="any" name="valor" id="valor" class="form-control" required>
+                    </div>                    
                 </div>
                 <div class="modal-footer gap-3">
                     <button type="button" class="btn btn-secondary" onclick="toggleAddMaterialModal(false)">Fechar</button>
@@ -92,10 +99,16 @@
                         <label for="editMaterialName" class="mb-1">Nome do Material</label>
                         <input type="text" id="editMaterialName" class="form-control" disabled>
                     </div>
+                    
                     <div class="form-group mb-3">
                         <label for="editMaterialQtd" class="mb-1">Quantidade</label>
                         <input type="number" name="qtd" id="editMaterialQtd" class="form-control" required>
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label for="editMaterialValor" class="mb-1">Valor</label>
+                        <input type="number" step="any" name="editMaterialValor" id="editMaterialValor" class="form-control" required>
+                    </div>  
                 </div>
                 <div class="modal-footer gap-3">
                     <button type="button" class="btn btn-secondary" onclick="toggleEditMaterialModal(false)">Fechar</button>
