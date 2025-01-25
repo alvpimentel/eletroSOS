@@ -12,7 +12,7 @@
         <div class="col-md-3">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">150</h5>
+                    <h5 class="card-title">{{ $servicosAbertos }}</h5>
                     <p class="card-text">OS em Aberto</p>
                     <a href="#" class="btn btn-light btn-sm">Mais informações</a>
                 </div>
@@ -34,7 +34,7 @@
         <div class="col-md-3">
             <div class="card text-white bg-success mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">53</h5>
+                    <h5 class="card-title">{{ $servicosFechados }}</h5>
                     <p class="card-text">OS Fechadas</p>
                     <a href="#" class="btn btn-light btn-sm">Mais informações</a>
                 </div>

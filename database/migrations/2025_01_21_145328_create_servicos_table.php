@@ -23,7 +23,9 @@ class CreateServicosTable extends Migration
             $table->text('descricao');
             $table->decimal('valor', 10, 2);
             $table->boolean('status')->default(true);
+            $table->boolean('finalizado')->default(false);
             $table->boolean('statusPagamento')->default(false); 
+            $table->date('dt_chamado')->nullable();
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

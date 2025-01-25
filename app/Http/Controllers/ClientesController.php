@@ -36,14 +36,13 @@ class ClientesController extends Controller
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:clientes,email',
             'telefone' => 'nullable|string|max:15',
-            'tipo_pessoa' => 'required|in:0,1', // Garante que o tipo seja 0 (física) ou 1 (jurídica)
+            'tipo_pessoa' => 'required|in:0,1',
             'cpf' => 'nullable|string|max:11',
             'cnpj' => 'nullable|string|max:14',
             'endereco' => 'nullable|string|max:255',
             'obs' => 'nullable|string',
         ]);
     
-        // Validação condicional para CPF ou CNPJ
         if ($request->tipo_pessoa === "0" && !$request->cpf) {
             return redirect()->back()->withErrors(['cpf' => 'O CPF é obrigatório para pessoa física.'])->withInput();
         }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Servico;
+use App\Models\Cliente;
+use App\Models\Material;
 use Error;
 
 class ServicoController extends Controller
@@ -18,7 +20,10 @@ class ServicoController extends Controller
 
     public function showCreateServico()
     {
-        return view('servicos.create');
+        $clientes = Cliente::all();
+        $materiais = Material::all();
+
+        return view('servicos.create', compact('clientes', 'materiais'));
     }
 
     public function createServico(Request $request)
@@ -40,6 +45,7 @@ class ServicoController extends Controller
             $servico->nome = $request->nome;
             $servico->descricao = $request->descricao;
             $servico->valor = $request->valor;
+            $servico->dt_chamado = $request->dt_chamado;
             $servico->save(); 
         
             return redirect()->route('servicos.index')->with('success', 'Serviço criado com sucesso!');
@@ -50,4 +56,13 @@ class ServicoController extends Controller
             
         }
     }
+
+    public function dashboard()
+    {
+        $servicosAbertos = Servico::where('finalizado', 1)->count();
+        $servicosFechados = Servico::where('finalizado', 0)->count();
+    
+        return view('painel.index', compact('servicosAbertos', 'servicosFechados'));
+    }
+    
 }

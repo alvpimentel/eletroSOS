@@ -29,6 +29,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Quantidade</th>
+                    <th>Valor</th>
                     <th>Última Atualização</th>
                     <th>Ações</th>
                 </tr>

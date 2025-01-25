@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Home')
+@section('title', 'Cadastrar Serviço')
 
 @section('content')
     @if (session('success'))
@@ -24,10 +24,10 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="email" class="mb-2">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required>
+                    <label for="descricao" class="mb-2">Descrição</label>
+                    <input type="text" name="descricao" id="descricao" class="form-control" required>
                 </div>
-                @error('email')
+                @error('descricao')
                     <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
@@ -36,92 +36,68 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="telefone" class="mb-2">Telefone</label>
-                    <input maxlength="11" minlength="11" type="text" name="telefone" id="telefone" class="form-control">
+                    <label for="valor" class="mb-2">Valor</label>
+                    <input type="text" name="valor" id="valor" class="form-control" required>
                 </div>
-                @error('telefone')
+                @error('valor')
                     <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="endereco" class="mb-2">Endereço</label>
-                    <input type="text" name="endereco" id="endereco" class="form-control">
-                </div>
-                @error('endereco')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="tipo_pessoa">Tipo de Pessoa</label>
-                    <select class="form-control" name="tipo_pessoa" id="tipo_pessoa" onchange="toggleCpfCnpj()" required>
-                        <option value="">Selecione</option>
-                        <option value="0">Pessoa Física</option>
-                        <option value="1">Pessoa Jurídica</option>
+                    <label for="cliente_id" class="mb-2">Cliente</label>
+                    <select name="cliente_id" id="cliente_id" class="form-control" required>
+                        <option value="">Selecione o Cliente</option>
+                        @foreach ($clientes ?? '' as $cliente)
+                            <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                        @endforeach
                     </select>
-                    @error('tipo_pessoa')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                    @enderror
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group" id="cpf_group" style="display: none;">
-                    <label for="cpf" class="mb-2">CPF</label>
-                    <input maxlength="11" minlength="11" type="text" name="cpf" id="cpf" class="form-control">
-                    @error('cpf')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-group" id="cnpj_group" style="display: none;">
-                    <label for="cnpj" class="mb-2">CNPJ</label>
-                    <input maxlength="14" minlength="14" type="text" name="cnpj" id="cnpj" class="form-control">
-                    @error('cnpj')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                    @enderror
-                </div>
+                @error('cliente_id')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12">
+        <div class="row mb-3">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label for="obs" class="mb-2">Observações</label>
-                    <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
+                    <label for="material_id" class="mb-2">Material</label>
+                    <select name="material_id" id="material_id" class="form-control" required>
+                        <option value="">Selecione o Material</option>
+                        @foreach ($materiais as $material)
+                            <option value="{{ $material->id }}">{{ $material->nome }}</option>
+                        @endforeach
+                    </select>
                 </div>
+                @error('material_id')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="data_entrega" class="mb-2">Data de Entrega</label>
+                    <input type="date" name="data_entrega" id="data_entrega" class="form-control" required>
+                </div>
+                @error('data_entrega')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
         <div class="d-flex flex-row gap-3 mt-3">
             <button onclick="goBack();" class="btn btn-secondary">Voltar</button>
-            <button type="submit" class="btn btn-success">Cadastrar Cliente</button>
+            <button type="submit" class="btn btn-success">Cadastrar Serviço</button>
         </div>
     </form>
 @endsection
 
 @section('scripts')
 <script>
-    function toggleCpfCnpj() {
-        const tipoPessoa = document.getElementById('tipo_pessoa').value;
-        const cpfGroup = document.getElementById('cpf_group');
-        const cnpjGroup = document.getElementById('cnpj_group');
-
-        if (tipoPessoa === "0") {
-            cpfGroup.style.display = 'block';
-            cnpjGroup.style.display = 'none';
-        } else if (tipoPessoa === "1") {
-            cpfGroup.style.display = 'none';
-            cnpjGroup.style.display = 'block';
-        } else {
-            cpfGroup.style.display = 'none';
-            cnpjGroup.style.display = 'none';
-        }
+    function goBack() {
+        window.history.back();
     }
 </script>
 @endsection

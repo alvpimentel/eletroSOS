@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ServicoController;
+use App\Models\Servico;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,10 @@ Route::post('/cadastro/usuario', [UserController::class, 'createUsuarioCadastro'
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Painel
-Route::get('/painel', [PainelController::class, 'showHome'])->name('home')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+Route::get('/painel', [PainelController::class, 'showHome'])->name('home');
+Route::get('/painel', [ServicoController::class, 'dashboard'])->name('painel.index');
+});
 
 // Clientes
 Route::middleware(['auth'])->group(function () {

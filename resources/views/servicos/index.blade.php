@@ -26,8 +26,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Email</th>
-                    <th>Telefone</th>
+                    <th>Cliente</th>
+                    <th>Valor</th>
+                    <th>Data</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -36,13 +37,15 @@
                     <tr>
                         <td>{{ $servico->id }}</td>
                         <td>{{ $servico->nome }}</td>
-                        <td>{{ $servico->email }}</td>
-                        <td>{{ $servico->telefone }}</td>
-                        <!-- <td>
-                            <a href="{{ route('clientes.edit.form', $cliente->id) }}" class="btn btn-primary btn-sm">
+                        <td>{{ $servico->cliente->nome }}</td>
+                        <td>R${{ $servico->valor }}</td>
+                        <td>{{ $servico->updated_at->format('d/m/Y') }}</td>
+
+                        <td>
+                            <a href="{{ route('clientes.edit.form', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>
                             </a>
-                        </td> -->
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
