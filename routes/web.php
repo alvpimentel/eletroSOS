@@ -63,8 +63,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/servicos', [ServicoController::class, 'showServicos'])->name('servicos');
     Route::get('/servicos/create', [ServicoController::class, 'showCreateServico'])->name('servicos.create.form');
     Route::post('/servicos/create', [ServicoController::class, 'createServico'])->name('servicos.create');
-    //Route::get('/clientes/edit/{id}', [ClientesController::class, 'showEditClientes'])->name('clientes.edit.form');
-    //Route::put('/clientes/update/{id}', [ClientesController::class, 'updateCliente'])->name('clientes.update');
+    Route::get('/servicos/edit/{id}', [ServicoController::class, 'showEditServico'])->name('servicos.edit');
+    Route::delete('/servicos/delete/{id}', [ServicoController::class, 'deleteServico'])->name('servicos.delete');    
 });
 
 // Companhia

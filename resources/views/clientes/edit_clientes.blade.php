@@ -59,6 +59,45 @@
             <button type="submit" class="btn btn-success" style="display: none;" id="saveButton">Salvar Alterações</button>
         </div>
     </form>
+
+    <hr/>
+
+    <h3 class="mt-4">Serviços do Cliente</h3>
+
+    @if($servicos->isEmpty())
+        <p>Este cliente ainda não possui serviços cadastrados.</p>
+    @else
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data do Chamado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($servicos as $servico)
+                    <tr>
+                        <td>{{ $servico->nome }}</td>
+                        <td>{{ $servico->descricao }}</td>
+                        <td>R$ {{ number_format($servico->valor, 2, ',', '.') }}</td>
+                        <td>{{ $servico->dt_chamado ? $servico->dt_chamado : 'Sem data.' }}</td>
+                        <td>
+                            <a href="{{ route('servicos.edit', $servico->id) }}" class="btn btn-primary btn-sm">Gerar Contrato</a>
+                            <form action="{{ route('servicos.delete', $servico->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este serviço?')">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+
 @endsection
 
 @section('scripts')

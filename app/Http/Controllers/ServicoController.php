@@ -7,21 +7,23 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Servico;
 use App\Models\Cliente;
 use App\Models\Material;
+use Carbon\Carbon;
 use Error;
 
 class ServicoController extends Controller
 {
     public function showServicos(Request $request)
     {
-        $servicos = Servico::where('company_id', Auth::user()->company_id)->get();
+        $servicos = Servico::where('status', 1)->
+        paginate(10);
 
         return view('servicos.index', compact('servicos'));
     }
 
     public function showCreateServico()
     {
-        $clientes = Cliente::all();
-        $materiais = Material::all();
+        $clientes = Cliente::where('company_id', Auth::user()->company_id)->get();;
+        $materiais = Material::where('company_id', Auth::user()->company_id)->get();;
 
         return view('servicos.create', compact('clientes', 'materiais'));
     }
@@ -48,21 +50,23 @@ class ServicoController extends Controller
             $servico->dt_chamado = $request->dt_chamado;
             $servico->save(); 
         
-            return redirect()->route('servicos.index')->with('success', 'Serviço criado com sucesso!');
+            return redirect()->route('servicos')->with('success', 'Serviço criado com sucesso!');
         
         } catch (\Exception $e) {
             
-            return redirect()->route('servicos.index')->with('error', 'Não foi possível criar o serviço. Erro: ' . $e->getMessage());
+            return redirect()->route('servicos')->with('error', 'Não foi possível criar o serviço. Erro: ' . $e->getMessage());
             
         }
     }
 
     public function dashboard()
     {
-        $servicosAbertos = Servico::where('finalizado', 1)->count();
-        $servicosFechados = Servico::where('finalizado', 0)->count();
+        $hoje = Carbon::today();
+
+        $servicosAbertos = Servico::where('finalizado', 0)->count();
+        $servicosFechados = Servico::where('finalizado', 1)->count();
+        $servicosPraHoje = Servico::whereDate('dt_chamado', $hoje)->count();
     
-        return view('painel.index', compact('servicosAbertos', 'servicosFechados'));
+        return view('painel.index', compact('servicosAbertos', 'servicosFechados', 'servicosPraHoje'));
     }
-    
 }

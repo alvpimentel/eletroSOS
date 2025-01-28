@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente; 
+use App\Models\Servico; 
 use Illuminate\Support\Facades\Auth;
 
 class ClientesController extends Controller
@@ -25,8 +26,13 @@ class ClientesController extends Controller
         $cliente = Cliente::where('id', $id)
             ->where('company_id', Auth::user()->company_id) 
             ->firstOrFail(); 
+
+            $servicos = Servico::where('cliente_id', $id)
+            ->where('company_id', Auth::user()->company_id)
+            ->where('status', 1)
+            ->get();
     
-        return view('clientes.edit_clientes', compact('cliente'));
+        return view('clientes.edit_clientes', compact('cliente', 'servicos'));
     }
     
 

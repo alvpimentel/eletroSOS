@@ -4,10 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class Servico extends Model
 {
     use HasFactory;
+
+    /**
+     * Tornar padrao filtro por companhia em todas as buscas
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('company', function (Builder $builder) {
+            if (Auth::check()) {
+                $builder->where('company_id', Auth::user()->company_id);
+            }
+        });
+    }
 
     /**
      * Atributos que podem ser preenchidos em massa.

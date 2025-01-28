@@ -78,8 +78,8 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="data_entrega" class="mb-2">Data de Entrega</label>
-                    <input type="date" name="data_entrega" id="data_entrega" class="form-control" required>
+                    <label for="dt_chamado" class="mb-2">Data de Entrega</label>
+                    <input type="date" name="dt_chamado" id="dt_chamado" class="form-control" required>
                 </div>
                 @error('data_entrega')
                     <div class="text-danger mt-1">{{ $message }}</div>

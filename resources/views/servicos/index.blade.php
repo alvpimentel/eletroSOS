@@ -12,7 +12,7 @@
     @endif
 
     <div class="d-flex justify-content-between align-items-center">
-        <a href="{{ route('servicos.create.form') }}" class="btn btn-success mb-3 mt-3">Cadastrar Cliente</a>
+        <a href="{{ route('servicos.create.form') }}" class="btn btn-success mb-3 mt-3">Cadastrar Serviço</a>
         <div class="d-flex">
             <input type="text" name="search" class="form-control me-2" placeholder="Pesquisar por nome" oninput="filterTable()" id="searchInput">
         </div>
@@ -51,5 +51,9 @@
             </tbody>
         </table>
     @endif
+
+    <div class="d-flex justify-content-center">
+        {{ $servicos->links() }}
+    </div>
 
 @endsection
