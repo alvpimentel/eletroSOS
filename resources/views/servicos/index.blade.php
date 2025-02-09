@@ -39,10 +39,10 @@
                         <td>{{ $servico->nome }}</td>
                         <td>{{ $servico->cliente->nome }}</td>
                         <td>R${{ $servico->valor }}</td>
-                        <td>{{ $servico->updated_at->format('d/m/Y') }}</td>
+                        <td>{{ $servico->dt_chamado ? $servico->dt_chamado : 'Sem data' }}</td>
 
                         <td>
-                            <a href="{{ route('clientes.edit.form', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('servicos.edit', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>
                             </a>
                         </td>

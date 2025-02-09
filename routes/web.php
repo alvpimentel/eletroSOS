@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/servicos/create', [ServicoController::class, 'showCreateServico'])->name('servicos.create.form');
     Route::post('/servicos/create', [ServicoController::class, 'createServico'])->name('servicos.create');
     Route::get('/servicos/edit/{id}', [ServicoController::class, 'showEditServico'])->name('servicos.edit');
+    Route::put('/servicos/update/{id}', [ServicoController::class, 'editServico'])->name('servicos.update');
     Route::delete('/servicos/delete/{id}', [ServicoController::class, 'deleteServico'])->name('servicos.delete');    
 });
 

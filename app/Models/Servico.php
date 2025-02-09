@@ -35,8 +35,10 @@ class Servico extends Model
         'material_id',
         'nome',
         'descricao',
+        'finalizado',
         'valor',
         'status',
+        'dt_chamado',
         'statusPagamento'
     ];
 
@@ -82,4 +84,21 @@ class Servico extends Model
     {
         return $this->belongsTo(Material::class);
     }
+
+    /**
+     * Relacionamento: Um serviço pode ter sido editado por um usuário.
+     */
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'editado_por');
+    }
+
+        /**
+     * Relacionamento: Um serviço pode ter uma prioridade.
+     */
+    public function prioridade()
+    {
+        return $this->belongsTo(Prioridade::class, 'prioridade_id');
+    }
+    
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Servico;
 use App\Models\Cliente;
 use App\Models\Material;
+use App\Models\Prioridade;
 use Carbon\Carbon;
 use Error;
 
@@ -15,6 +16,7 @@ class ServicoController extends Controller
     public function showServicos(Request $request)
     {
         $servicos = Servico::where('status', 1)->
+        orderByDesc('dt_chamado')->
         paginate(10);
 
         return view('servicos.index', compact('servicos'));
@@ -24,8 +26,9 @@ class ServicoController extends Controller
     {
         $clientes = Cliente::where('company_id', Auth::user()->company_id)->get();;
         $materiais = Material::where('company_id', Auth::user()->company_id)->get();;
+        $prioridades = Prioridade::all();
 
-        return view('servicos.create', compact('clientes', 'materiais'));
+        return view('servicos.create', compact('clientes', 'materiais', 'prioridades'));
     }
 
     public function createServico(Request $request)
@@ -58,6 +61,38 @@ class ServicoController extends Controller
             
         }
     }
+
+    public function showEditServico($id)
+    {
+        $servico = Servico::where('id', $id)->firstOrFail(); 
+    
+        return view('servicos.edit', compact('servico'));
+    }
+
+    public function editServico(Request $request, $id)
+    {
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'valor' => 'required|string',
+        ]);
+
+        $valorFormatado = str_replace(['R$', '.', ','], ['', '', '.'], $request->valor);
+
+        $servico = Servico::findOrFail($id);
+        $servico->nome = $request->nome;
+        $servico->descricao = $request->descricao;
+        $servico->valor = number_format((float) $valorFormatado, 2, '.', '');
+        $servico->editado_por = Auth::id();
+        $servico->dt_chamado = $request->dt_chamado;
+        $servico->finalizado = $request->finalizado;
+        $servico->statusPagamento = $request->statusPagamento;
+        $servico->save(); 
+
+        return redirect()->route('servicos')->with('success', 'Serviço atualizado com sucesso!');
+    
+    }
+
 
     public function dashboard()
     {
