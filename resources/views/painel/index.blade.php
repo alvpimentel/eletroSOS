@@ -23,7 +23,7 @@
         <div class="col-md-3">
             <div class="card text-white bg-warning mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">4</h5>
+                    <h5 class="card-title">{{ $servicosPraHoje }}</h5>
                     <p class="card-text">OS para atendimento hoje</p>
                     <a href="#" class="btn btn-light btn-sm">Mais informações</a>
                 </div>

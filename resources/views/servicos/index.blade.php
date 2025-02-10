@@ -12,7 +12,7 @@
     @endif
 
     <div class="d-flex justify-content-between align-items-center">
-        <a href="{{ route('servicos.create.form') }}" class="btn btn-success mb-3 mt-3">Cadastrar Cliente</a>
+        <a href="{{ route('servicos.create.form') }}" class="btn btn-success mb-3 mt-3">Cadastrar Serviço</a>
         <div class="d-flex">
             <input type="text" name="search" class="form-control me-2" placeholder="Pesquisar por nome" oninput="filterTable()" id="searchInput">
         </div>
@@ -39,10 +39,10 @@
                         <td>{{ $servico->nome }}</td>
                         <td>{{ $servico->cliente->nome }}</td>
                         <td>R${{ $servico->valor }}</td>
-                        <td>{{ $servico->updated_at->format('d/m/Y') }}</td>
+                        <td>{{ $servico->dt_chamado ? $servico->dt_chamado : 'Sem data' }}</td>
 
                         <td>
-                            <a href="{{ route('clientes.edit.form', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('servicos.edit', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>
                             </a>
                         </td>
@@ -51,5 +51,9 @@
             </tbody>
         </table>
     @endif
+
+    <div class="d-flex justify-content-center">
+        {{ $servicos->links() }}
+    </div>
 
 @endsection

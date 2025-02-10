@@ -4,10 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class Servico extends Model
 {
     use HasFactory;
+
+    /**
+     * Tornar padrao filtro por companhia em todas as buscas
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('company', function (Builder $builder) {
+            if (Auth::check()) {
+                $builder->where('company_id', Auth::user()->company_id);
+            }
+        });
+    }
 
     /**
      * Atributos que podem ser preenchidos em massa.
@@ -21,8 +35,10 @@ class Servico extends Model
         'material_id',
         'nome',
         'descricao',
+        'finalizado',
         'valor',
         'status',
+        'dt_chamado',
         'statusPagamento'
     ];
 
@@ -68,4 +84,21 @@ class Servico extends Model
     {
         return $this->belongsTo(Material::class);
     }
+
+    /**
+     * Relacionamento: Um serviço pode ter sido editado por um usuário.
+     */
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'editado_por');
+    }
+
+        /**
+     * Relacionamento: Um serviço pode ter uma prioridade.
+     */
+    public function prioridade()
+    {
+        return $this->belongsTo(Prioridade::class, 'prioridade_id');
+    }
+    
 }

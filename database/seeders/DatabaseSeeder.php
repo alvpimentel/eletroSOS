@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Prioridade;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $prioridades = ['Baixa', 'Média', 'Alta', 'Crítica'];
+
+        foreach ($prioridades as $prioridade) {
+            Prioridade::firstOrCreate(['nome' => $prioridade]);
+        }
+        
     }
 }
