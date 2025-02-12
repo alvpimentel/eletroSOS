@@ -9,7 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ServicoController;
-use App\Models\Servico;
+use App\Http\Controllers\ContratoController;
+use App\Models\Contrato;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/perfil/{id}', [MaterialController::class, 'updatePerfil'])->name('perfil.update');
 });
 
-//Servicos
+// Servicos
 Route::middleware(['auth'])->group(function () {
     Route::get('/servicos', [ServicoController::class, 'showServicos'])->name('servicos');
     Route::get('/servicos/create', [ServicoController::class, 'showCreateServico'])->name('servicos.create.form');
@@ -66,6 +67,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/servicos/edit/{id}', [ServicoController::class, 'showEditServico'])->name('servicos.edit');
     Route::put('/servicos/update/{id}', [ServicoController::class, 'editServico'])->name('servicos.update');
     Route::delete('/servicos/delete/{id}', [ServicoController::class, 'deleteServico'])->name('servicos.delete');    
+});
+
+// Contratos
+Route::middleware(['auth'])->group(function () {
+    Route::get('/servicos/{id}/contratos', [ContratoController::class, 'buildContrato'])->name('contratos.gerar');
+    Route::post('/contratos/create', [ContratoController::class, 'createContrato'])->name('contratos.create');
+    Route::get('/contratos/show/{id}', [ContratoController::class, 'showContrato'])->name('contratos.view');
 });
 
 // Companhia

@@ -39,8 +39,7 @@
                         <td>{{ $servico->nome }}</td>
                         <td>{{ $servico->cliente->nome }}</td>
                         <td>R${{ $servico->valor }}</td>
-                        <td>{{ $servico->dt_chamado ? $servico->dt_chamado : 'Sem data' }}</td>
-
+                        <td>{{ $servico->dt_chamado ? formatarData($servico->dt_chamado) : 'Sem data' }}</td>
                         <td>
                             <a href="{{ route('servicos.edit', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>

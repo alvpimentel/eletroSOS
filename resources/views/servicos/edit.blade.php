@@ -13,9 +13,9 @@
         <strong>Cliente: {{ $servico->cliente->nome }}</strong>
         
         @if (!$servico->editado_por)
-            <small>Criado por {{ $servico->user->name }} em {{ $servico->created_at }}</small>
+            <small>Criado por {{ $servico->user->name }} em {{ formatarDataHora($servico->created_at) }}</small>
         @else
-            <small>Editado por {{ $servico->editor->name }} em {{ $servico->updated_at }}</small>
+            <small>Editado por {{ $servico->editor->name }} em {{ formatarDataHora($servico->updated_at) }}</small>
         @endif
     </div>
 
@@ -87,12 +87,49 @@
             </div>
 
 
-        <div class="d-flex flex-row gap-3 mt-3">
+            <div class="d-flex flex-row gap-3 mt-3">
             <button type="button" onclick="goBack()" class="btn btn-secondary">Voltar</button>
             <button type="button" onclick="enableEditing()" class="btn btn-warning">Editar</button>
             <button type="submit" class="btn btn-success" style="display: none;" id="saveButton">Salvar Alterações</button>
         </div>
     </form>
+
+    <hr class="mt-3"/>
+
+    <h3 class="mt-2">Contratos do Serviço</h3>
+
+    <div>
+        <a href="{{ route('contratos.gerar', ['id' => $servico->id]) }}" class="btn btn-success mb-3 mt-1">Gerar Contrato</a>
+    </div>
+
+    @if($contratos->isEmpty())
+        <p class="mt-2">Este serviço ainda não possui contrato gerado.</p>
+    @else
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Data do Chamado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($servicos as $servico)
+                    <tr>
+                        <td>{{ $contratos->nr_versao }}</td>
+                        <td>{{ $contratos->user_id }}</td>
+                        <td>{{ $contratos->dt_criado ? $servico->dt_chamado : 'Sem data.' }}</td>
+                        <td>
+                            <a href="{{ route('servicos.edit', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 
 @endsection
 
