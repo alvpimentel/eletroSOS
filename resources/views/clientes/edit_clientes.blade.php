@@ -85,12 +85,9 @@
                         <td>R$ {{ number_format($servico->valor, 2, ',', '.') }}</td>
                         <td>{{ $servico->dt_chamado ? $servico->dt_chamado : 'Sem data.' }}</td>
                         <td>
-                            <a href="{{ route('servicos.edit', $servico->id) }}" class="btn btn-primary btn-sm">Gerar Contrato</a>
-                            <form action="{{ route('servicos.delete', $servico->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este serviço?')">Excluir</button>
-                            </form>
+                            <a href="{{ route('servicos.edit', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-eye"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

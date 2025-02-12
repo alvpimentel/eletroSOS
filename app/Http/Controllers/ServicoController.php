@@ -8,6 +8,7 @@ use App\Models\Servico;
 use App\Models\Cliente;
 use App\Models\Material;
 use App\Models\Prioridade;
+use App\Models\Contrato;
 use Carbon\Carbon;
 use Error;
 
@@ -64,10 +65,15 @@ class ServicoController extends Controller
 
     public function showEditServico($id)
     {
-        $servico = Servico::where('id', $id)->firstOrFail(); 
-    
-        return view('servicos.edit', compact('servico'));
+        $servico = Servico::where('id', $id)->firstOrFail();
+        
+        $contratos = Contrato::where('servico_id', $id)
+            ->orderByDesc('dt_criacao')
+            ->paginate(10);
+        
+        return view('servicos.edit', compact('servico', 'contratos'));
     }
+    
 
     public function editServico(Request $request, $id)
     {
