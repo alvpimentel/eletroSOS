@@ -40,18 +40,25 @@ class ServicoController extends Controller
                 'descricao' => 'required|string',
                 'valor' => 'required|numeric|min:0',
                 'cliente_id' => 'required|exists:clientes,id', 
-                'material_id' => 'required|exists:materials,id', 
+                //'material_id' => 'required|exists:materials,id', 
+                'dt_chamado' => 'required|date',
+                'prioridade_id' => 'required|exists:prioridades,id',
+
             ]);
         
             $servico = new Servico();
             $servico->company_id = Auth::user()->company_id; 
             $servico->user_id = Auth::id(); 
             $servico->cliente_id = $request->cliente_id;
-            $servico->material_id = $request->material_id;
+            $servico->material_id = 1;
             $servico->nome = $request->nome;
             $servico->descricao = $request->descricao;
             $servico->valor = $request->valor;
             $servico->dt_chamado = $request->dt_chamado;
+            $servico->prioridade_id = $request->prioridade_id;
+            $servico->finalizado = 0;
+            $servico->status = 1;
+            $servico->statusPagamento = 0;
             $servico->save(); 
         
             return redirect()->route('servicos')->with('success', 'Serviço criado com sucesso!');

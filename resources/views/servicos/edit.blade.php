@@ -108,21 +108,23 @@
         <table class="table table-striped mt-3">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Data do Chamado</th>
+                    <th>Versão</th>
+                    <th>Gerado Por</th>
+                    <th>Data de Criação</th>
+                    <th>Status</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($servicos as $servico)
+                @foreach($contratos as $contrato)
                     <tr>
-                        <td>{{ $contratos->nr_versao }}</td>
-                        <td>{{ $contratos->user_id }}</td>
-                        <td>{{ $contratos->dt_criado ? $servico->dt_chamado : 'Sem data.' }}</td>
+                        <td>{{ $contrato->nr_versao }}</td>
+                        <td>{{ $contrato->user->name }}</td>
+                        <td>{{ $contrato->created_at ? formatarDataHora($contrato->created_at) : 'Sem data.' }}</td>
+                        <td>{{ $contrato->status? 'Ativo' : 'Inativo' }}</td>
                         <td>
-                            <a href="{{ route('servicos.edit', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
-                                <i class="bi bi-eye"></i>
+                            <a href="{{ route('contratos.download', $contrato->id) }}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-download"></i>
                             </a>
                         </td>
                     </tr>

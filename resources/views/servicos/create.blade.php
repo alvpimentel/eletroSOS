@@ -22,14 +22,14 @@
                 @enderror
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="valor" class="mb-2">Valor</label>
-                    <input type="text" name="valor" id="valor" class="form-control" required>
+                    <div class="input-group">
+                        <span class="input-group-text">R$</span>
+                        <input type="text" name="valor" id="valor" class="form-control" value="{{ number_format($servico->valor, 2, ',', '.') }}" disabled required oninput="formatarMoeda(this)">
+                    </div>
                 </div>
-                @error('valor')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
             </div>
 
             <div class="col-md-3">

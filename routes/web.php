@@ -72,8 +72,9 @@ Route::middleware(['auth'])->group(function () {
 // Contratos
 Route::middleware(['auth'])->group(function () {
     Route::get('/servicos/{id}/contratos', [ContratoController::class, 'buildContrato'])->name('contratos.gerar');
-    Route::post('/contratos/create', [ContratoController::class, 'createContrato'])->name('contratos.create');
-    Route::get('/contratos/show/{id}', [ContratoController::class, 'showContrato'])->name('contratos.view');
+    Route::post('/contratos/create', [ContratoController::class, 'store'])->name('contratos.store');
+    Route::get('/contratos/{id}', [ContratoController::class, 'showContrato'])->name('contratos.view');
+    Route::get('/contratos/{id}/download', [ContratoController::class, 'downloadPdf'])->name('contratos.download');
 });
 
 // Companhia
