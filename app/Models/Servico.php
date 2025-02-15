@@ -38,6 +38,7 @@ class Servico extends Model
         'finalizado',
         'valor',
         'status',
+        'prioridade_id',
         'dt_chamado',
         'statusPagamento'
     ];
