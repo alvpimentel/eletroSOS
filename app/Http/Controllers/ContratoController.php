@@ -57,9 +57,7 @@ class ContratoController extends Controller
                 'status'      => 1,
             ]);
     
-            return redirect()
-                ->route('contratos.index')
-                ->with('success', 'Contrato criado com sucesso!');
+            return response()->json(['success' => true, 'message' => 'Contrato gerado!']);
     
         } catch (\Throwable $e) { 
             return redirect()

@@ -27,7 +27,7 @@
                     <label for="valor" class="mb-2">Valor</label>
                     <div class="input-group">
                         <span class="input-group-text">R$</span>
-                        <input type="text" name="valor" id="valor" class="form-control" value="{{ number_format($servico->valor, 2, ',', '.') }}" disabled required oninput="formatarMoeda(this)">
+                        <input type="text" name="valor" id="valor" class="form-control" required oninput="formatarMoeda(this)">
                     </div>
                 </div>
             </div>
@@ -61,10 +61,10 @@
 
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="dt_chamado" class="mb-2">Data de Entrega</label>
+                    <label for="dt_chamado" class="mb-2">Data</label>
                     <input type="date" name="dt_chamado" id="dt_chamado" class="form-control" required>
                 </div>
-                @error('data_entrega')
+                @error('dt_chamado') 
                     <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>

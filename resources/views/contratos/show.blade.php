@@ -112,7 +112,7 @@
     </div>
 
     <div class="button-container d-flex flex-row gap-2">
-        <button onclick="goBack()" class="btn btn-danger">Cancelar</button>
+        <a href="{{ previousUrl() }}" class="btn btn-danger">Cancelar</a>
         <button type="button" class="btn btn-primary" onclick="gerarContrato()">Gerar Contrato</button>
     </div>
 </body>
@@ -124,13 +124,12 @@ function gerarContrato() {
     // Pega o conteúdo HTML da div .contract-container
     let contratoHtml = document.querySelector('.contract-container').innerHTML;
     
-    // Dados que você precisa enviar
     let dados = {
         company_id: "{{ $servico->company->id }}",
         user_id: "{{ auth()->user()->id }}",
         cliente_id: "{{ $servico->cliente->id }}",
         servico_id: "{{ $servico->id }}",
-        tx_contrato: contratoHtml,  // Passa o conteúdo HTML da div para o campo tx_contrato
+        tx_contrato: contratoHtml, 
         nr_versao: "1", 
     };
 
@@ -147,8 +146,7 @@ function gerarContrato() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert("Contrato gerado com sucesso!");
-            // Talvez você queira redirecionar ou mostrar o contrato gerado de alguma forma
+            window.location.href = "{{ route('servicos.edit', ':id') }}".replace(':id', dados.servico_id);
         } else {
             alert("Ocorreu um erro ao gerar o contrato.");
         }

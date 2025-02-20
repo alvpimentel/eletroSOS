@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Cliente; 
 use App\Models\Servico; 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\LogHelper;
 
 class ClientesController extends Controller
 {
@@ -34,7 +36,6 @@ class ClientesController extends Controller
     
         return view('clientes.edit_clientes', compact('cliente', 'servicos'));
     }
-    
 
     public function createCliente(Request $request)
     {
@@ -57,19 +58,30 @@ class ClientesController extends Controller
             return redirect()->back()->withErrors(['cnpj' => 'O CNPJ é obrigatório para pessoa jurídica.'])->withInput();
         }
     
-        Cliente::create([
-            'nome' => $request->input('nome'),
-            'email' => $request->input('email'),
-            'telefone' => $request->input('telefone'),
-            'tipo_pessoa' => $request->input('tipo_pessoa'),
-            'cpf' => $request->input('cpf'),
-            'cnpj' => $request->input('cnpj'),
-            'endereco' => $request->input('endereco'),
-            'obs' => $request->input('obs'),
-            'company_id' => Auth::user()->company_id,
-        ]);
+        try {
+            $cliente = Cliente::create([
+                'nome' => $request->input('nome'),
+                'email' => $request->input('email'),
+                'telefone' => $request->input('telefone'),
+                'tipo_pessoa' => $request->input('tipo_pessoa'),
+                'cpf' => $request->input('cpf'),
+                'cnpj' => $request->input('cnpj'),
+                'endereco' => $request->input('endereco'),
+                'obs' => $request->input('obs'),
+                'company_id' => Auth::user()->company_id,
+            ]);
     
-        return redirect()->route('clientes')->with('success', 'Cliente criado com sucesso!');
+            LogHelper::registrar('Cliente criado', request()->ip(), [
+                'cliente_id' => $cliente->id,
+                'nome' => $cliente->nome,
+                'email' => $cliente->email,
+            ]);
+    
+            return redirect()->route('clientes')->with('success', 'Cliente criado com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao criar o cliente.'])->withInput();
+        }
     }
 
     public function updateCliente(Request $request, $id)
