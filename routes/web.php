@@ -10,6 +10,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\GerenteController;
 use App\Models\Contrato;
 
 /*
@@ -80,6 +81,13 @@ Route::middleware(['auth'])->group(function () {
 // Companhia
 Route::get('/cadastro/companhia', [CompanyController::class, 'showCompanyForm'])->name('cadastro.companhia');
 Route::post('/cadastro/companhia', [CompanyController::class, 'store'])->name('companies.store');
+
+// Gerente 
+Route::middleware(['auth'])->group(function () {
+    Route::post('/company/upload-logo', [GerenteController::class, 'uploadLogo'])->name('gerente.uploadLogo');
+    Route::get('/gerente', [GerenteController::class, 'showUsersCompany'])->name('gerente.index');
+    Route::get('/gerente/logs/{userId}', [GerenteController::class, 'showLogUser'])->name('gerente.logUsuario');
+});
 
 // Admin
 Route::middleware(['auth', 'admin'])->group(function () {

@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'EletroSOS')</title>
+    <!-- CSS do Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Menu Lateral */
         .sidebar {
@@ -136,6 +138,11 @@
             <a href="/perfil">
                 <i class="bi bi-person"></i><span>Perfil</span>
             </a>
+            @can('acesso-gerente')
+                <a href="{{ route('gerente.index') }}">
+                    <i class="bi bi-house-lock"></i><span>Gerência</span>
+                </a>
+            @endcan
         </div>
 
         <!-- Botão de Logout -->
@@ -168,7 +175,10 @@
     </div>
 </body>
 @yield('scripts')
-
+<!-- JavaScript do Bootstrap (certifique-se de carregar o bootstrap.bundle.min.js para o funcionamento do Modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Se você estiver usando jQuery, é melhor carregar após o Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function updateClock() {
@@ -220,9 +230,9 @@
     });
 
     function formatarMoeda(input) {
-        let valor = input.value.replace(/\D/g, ""); // Remove tudo que não for número
-        valor = (parseFloat(valor) / 100).toFixed(2); // Divida por 100 se o valor for sem casas decimais
-        input.value = valor.replace(".", ","); // Substitui o ponto por vírgula para exibição
+        let valor = input.value.replace(/\D/g, ""); 
+        valor = (parseFloat(valor) / 100).toFixed(2); 
+        input.value = valor.replace(".", ","); 
     }
 
 </script>

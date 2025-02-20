@@ -13,3 +13,13 @@ if (!function_exists('formatarData')) {
         return \Carbon\Carbon::parse($data)->format('d/m/Y');
     }
 }
+
+if (!function_exists('previousUrl')) {
+    function previousUrl()
+    {
+        if (!session()->has('previous_url')) {
+            session()->put('previous_url', url()->previous());
+        }
+        return session('previous_url', url('/')); 
+    }
+}

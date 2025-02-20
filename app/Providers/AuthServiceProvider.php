@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('acesso-gerente', function ($user) {
+            return $user->acesso_id == 1;
+        });
+
     }
+    
 }

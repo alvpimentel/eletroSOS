@@ -17,6 +17,7 @@ class User extends Authenticatable
         'email',
         'password',
         'company_id', 
+        'acesso_id', // Adicionado aqui
     ];
 
     protected $hidden = [
@@ -34,5 +35,13 @@ class User extends Authenticatable
     public function company()
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    /**
+     * Define a relação entre User e Acesso.
+     */
+    public function acesso()
+    {
+        return $this->belongsTo(Acesso::class, 'acesso_id');
     }
 }

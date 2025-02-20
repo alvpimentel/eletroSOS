@@ -87,7 +87,7 @@
             </div>
 
 
-            <div class="d-flex flex-row gap-3 mt-3">
+        <div class="d-flex flex-row gap-3 mt-3">
             <button type="button" onclick="goBack()" class="btn btn-secondary">Voltar</button>
             <button type="button" onclick="enableEditing()" class="btn btn-warning">Editar</button>
             <button type="submit" class="btn btn-success" style="display: none;" id="saveButton">Salvar Alterações</button>
