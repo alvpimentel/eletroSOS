@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/company/upload-logo', [GerenteController::class, 'uploadLogo'])->name('gerente.uploadLogo');
     Route::get('/gerente', [GerenteController::class, 'showUsersCompany'])->name('gerente.index');
     Route::get('/gerente/logs/{userId}', [GerenteController::class, 'showLogUser'])->name('gerente.logUsuario');
+    Route::put('/gerente/{user}', [GerenteController::class, 'updatePasswordForUser'])->name('gerente.senha.atualizar');
 });
 
 // Admin

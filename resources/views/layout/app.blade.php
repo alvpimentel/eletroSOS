@@ -235,5 +235,28 @@
         input.value = valor.replace(".", ","); 
     }
 
+    document.addEventListener("DOMContentLoaded", function() {
+            // Função para resetar os inputs dos modais ao fechá-los
+            function clearModalInputs() {
+                const modals = document.querySelectorAll('.modal'); // Seleciona todos os modais
+                
+                modals.forEach(modal => {
+                    modal.addEventListener('hidden.bs.modal', function () {
+                        const inputs = modal.querySelectorAll('input');
+                        inputs.forEach(input => {
+                            input.value = '';
+                        });
+
+                        const errorDiv = modal.querySelector('.alert-danger');
+                        if (errorDiv) {
+                            errorDiv.remove();
+                        }
+                    });
+                });
+            }
+
+            clearModalInputs();
+        });
+
 </script>
 </html>

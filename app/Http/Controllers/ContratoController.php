@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Contrato;
 use App\Models\Servico;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Helpers\LogHelper;
 
 class ContratoController extends Controller
 {
@@ -55,6 +56,13 @@ class ContratoController extends Controller
                 'nr_versao'   => $nrVersao,
                 'tx_contrato' => $request->tx_contrato,
                 'status'      => 1,
+            ]);
+
+            LogHelper::registrar('Contrato criado', request()->ip(), [
+                'contrato_id' => $contrato->id,
+                'servico_id' => $request->servico_id,
+                'cliente_id' => $request->cliente_id,
+                'nr_versao' => $nrVersao,
             ]);
     
             return response()->json(['success' => true, 'message' => 'Contrato gerado!']);

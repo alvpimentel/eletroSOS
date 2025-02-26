@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\User;
 use App\Models\Log;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class GerenteController extends Controller
@@ -57,4 +58,35 @@ class GerenteController extends Controller
         return view('gerente.logUsuario', compact('logUsuario'));
     }
     
+    public function updatePasswordForUser(Request $request, User $user)
+    {
+        try {
+
+            if (Auth::user()->acesso_id != 1) {
+                return response()->json([
+                    'error' => 'Você não tem permissão para alterar a senha de outro usuário.',
+                    'code' => 403
+                ], 403);
+            }
+    
+            $validatedData = $request->validate([
+                'password' => 'required|min:6|confirmed',
+            ]);
+    
+            $user->update([
+                'password' => Hash::make($validatedData['password']),
+            ]);
+    
+            return response()->json([
+                'success' => 'Senha alterada com sucesso.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Erro ao alterar a senha.',
+                'details' => $e->getMessage(),
+                'code' => 500
+            ], 500);
+        }
+    }       
+
 }
