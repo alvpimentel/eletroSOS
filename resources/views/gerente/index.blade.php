@@ -53,7 +53,11 @@
                             <a href="{{ route('gerente.logUsuario', $users->id) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-clock-history"></i>
                             </a>
-                            <a href="{{ route('gerente.logUsuario', $users->id) }}" class="btn btn-warning btn-sm">
+                            <a href="#" class="btn btn-warning btn-sm changePasswordBtn" 
+                                data-id="{{ $users->id }}" 
+                                data-name="{{ $users->name }}" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#changePasswordModal">
                                 <i class="bi bi-key"></i>
                             </a>
                             <a href="{{ route('gerente.logUsuario', $users->id) }}" class="btn btn-danger btn-sm">
@@ -66,7 +70,45 @@
         </table>
     @endif
 
-    <!-- MODAL -->
+    <!-- MODAL PARA ALTERAR SENHA -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Alterar Senha de <span id="userName"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changePasswordForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" id="userId" name="user_id">
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Nova Senha</label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Confirmar Senha</label>
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+                        </div>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <p>{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL UPLOAD LOGO -->
     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -104,5 +146,26 @@
                 }
             });
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const changePasswordButtons = document.querySelectorAll('.changePasswordBtn');
+            
+            changePasswordButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-id');
+                    const userName = this.getAttribute('data-name');
+
+                    console.log("User ID:", userId);  // Verifica se o ID está correto
+                    console.log("User Name:", userName);  // Verifica se o nome está correto
+
+                    document.getElementById('userId').value = userId;
+                    document.getElementById('userName').textContent = userName;
+                    
+                    const form = document.getElementById('changePasswordForm');
+                    form.action = `{{ route('gerente.senha.atualizar', ':id') }}`.replace(':id', userId);
+                });
+            });
+        });
+
     </script>
 @endsection
