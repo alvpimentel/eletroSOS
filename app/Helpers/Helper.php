@@ -23,3 +23,10 @@ if (!function_exists('previousUrl')) {
         return session('previous_url', url('/')); 
     }
 }
+
+if (!function_exists('formatarMoeda')) {
+    function formatarMoeda($valor)
+    {
+        return 'R$ ' . number_format($valor, 2, ',', '.');
+    }
+}

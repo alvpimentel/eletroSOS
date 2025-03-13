@@ -18,14 +18,22 @@
         @endif
     </div>
 
-    <div class="mt-3 mb-5 gap-2">
+    <div class="mt-3 mb-5 gap-1">
         <p>Nome: {{ $companyInfo->nome }}</p>
-        <p>Email: {{ $companyInfo->email }}</p>
+        <small>CNPJ: {{ $companyInfo->cnpj }}</small>
+        <!-- <p>Email: {{ $companyInfo->email }}</p> -->
     </div>
 
-    <div class="col-md-4 col-sm-6 mt-2 mb-3">
-        <input type="text" name="search" class="form-control me-2" placeholder="Pesquisar por nome" oninput="filterTable()" id="searchInput">
+    <div class="d-flex flex-row gap-3 align-items-center">
+        <div class="col-md-4 col-sm-6 mt-2 mb-3">
+            <input type="text" name="search" class="form-control me-2" placeholder="Pesquisar por nome" oninput="filterTable()" id="searchInput">
+        </div>
+
+        <button class="btn btn-outline-success btn-sm d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#createUserModal">
+            <i class="bi bi-plus"></i> Adicionar Usuário
+        </button>
     </div>
+
 
     @if ($usersCompany->isEmpty())
         <p>Nenhum Usuário localizado.</p>
@@ -129,6 +137,57 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL PARA CRIAR USUÁRIO -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createUserModalLabel">Criar Novo Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('gerente.criarUsuario') }}" method="POST">
+                        @csrf
+                        
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Digite o nome" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="exemplo@email.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="acesso_id" class="form-label">Tipo de Acesso</label>
+                            <select name="acesso_id" id="acesso_id" class="form-control" required>
+                                <option value="" disabled selected>Selecione o tipo de acesso</option>
+                                <option value="1">Gerente</option>
+                                <option value="2">Operador</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Senha</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Digite a senha" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password_confirmation" class="form-label">Confirmar Senha</label>
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirme a senha" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
@@ -155,8 +214,8 @@
                     const userId = this.getAttribute('data-id');
                     const userName = this.getAttribute('data-name');
 
-                    console.log("User ID:", userId);  // Verifica se o ID está correto
-                    console.log("User Name:", userName);  // Verifica se o nome está correto
+                    console.log("User ID:", userId); 
+                    console.log("User Name:", userName); 
 
                     document.getElementById('userId').value = userId;
                     document.getElementById('userName').textContent = userName;

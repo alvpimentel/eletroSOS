@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'EletroSOS')</title>
+    
     <!-- CSS do Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Ícones do Bootstrap -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    
+    <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         /* Menu Lateral */
         .sidebar {
@@ -18,11 +27,11 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 80px; 
+            width: 90px; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px 0;
+            padding: 15px 0;
             overflow: hidden;
             transition: width 0.3s ease; 
         }
@@ -65,6 +74,28 @@
         }
         .sidebar:hover ~ .content {
             margin-left: 250px; 
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90px;
+            transition: height 0.3s ease; 
+        }
+
+        .logo {
+            width: 90px; 
+            height: auto;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar:hover .logo-container {
+            height: 150px; /* Aumenta mais */
+        }
+
+        .sidebar:hover .logo {
+            width: 140px; /* Fica ainda maior */
         }
 
         /* Modal */
@@ -112,6 +143,31 @@
             cursor: pointer;
         }
 
+        .list-group-item {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-group-item h5 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .list-group-item small {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .logContainer {
+            transition: transform 0.3s ease-in-out; 
+        }
+
+        .logContainer:hover {
+            transform: scale(1.02);
+        }
+
     </style>
 </head>
 <body>
@@ -119,7 +175,9 @@
     <div class="sidebar">
         <!-- Itens do Menu -->
         <div>
-            <h4 class="text-center mb-4">ES</h4> <!-- Sigla para o título -->
+            <div class="logo-container">
+                <img src="{{ asset('logoBranca.png') }}" alt="Logo Eletro OSS" class="logo">
+            </div>
             <a href="/painel">
                 <i class="bi bi-speedometer2"></i><span>Painel</span>
             </a>
@@ -162,7 +220,7 @@
                     <span id="routeName" class="navbar-brand mb-0 h1">
                         <span id="clock"></span>
                         @if(isset($usuario))
-                            | {{ $usuario->name }}
+                            | {{ $usuario->company->nome }} | {{ $usuario->name }}
                         @endif
                     </span>
                 </div>
@@ -258,5 +316,24 @@
             clearModalInputs();
         });
 
+        // Expandir logo
+        document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.querySelector(".sidebar");
+        const logo = document.querySelector(".logo");
+
+            sidebar.addEventListener("mouseenter", function() {
+                logo.style.width = "110px";
+
+                setTimeout(() => {
+                    if (sidebar.matches(":hover")) { 
+                        logo.style.width = "150px";
+                    }
+                }, 10);
+            });
+
+            sidebar.addEventListener("mouseleave", function() {
+                logo.style.width = "90px";
+            });
+        });
 </script>
 </html>

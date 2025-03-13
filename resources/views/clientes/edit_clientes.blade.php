@@ -82,7 +82,7 @@
                     <tr>
                         <td>{{ $servico->nome }}</td>
                         <td>{{ $servico->descricao }}</td>
-                        <td>R$ {{ number_format($servico->valor, 2, ',', '.') }}</td>
+                        <td>R$ {{ formatarMoeda($servico->valor) }}</td>
                         <td>{{ $servico->dt_chamado ? $servico->dt_chamado : 'Sem data.' }}</td>
                         <td>
                             <a href="{{ route('servicos.edit', $servico ?? ''->id) }}" class="btn btn-primary btn-sm">
@@ -93,6 +93,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="d-flex justify-content-center">
+            {{ $servicos->links('vendor.pagination.bootstrap-4') }}
+        </div>
     @endif
 
 @endsection

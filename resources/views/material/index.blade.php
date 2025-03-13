@@ -40,7 +40,7 @@
                         <td>{{ $material->id }}</td>
                         <td>{{ $material->nome }}</td>
                         <td>{{ $material->qtd }}</td>
-                        <td>R${{ $material->valor }}</td>
+                        <td>{{ formatarMoeda($material->valor) }}</td>
                         <td>{{ $material->updated_at->format('d/m/Y') }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" onclick="openEditMaterialModal({{ $material->id }}, '{{ $material->nome }}', {{ $material->qtd }})">

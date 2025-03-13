@@ -13,7 +13,8 @@ class ClientesController extends Controller
 {
     public function showClientes()
     {
-        $clientes = Cliente::where('company_id', Auth::user()->company_id)->get();
+        $clientes = Cliente::where('company_id', Auth::user()->company_id)->
+        paginate(10);
     
         return view('clientes.index', compact('clientes'));
     }    
@@ -32,7 +33,7 @@ class ClientesController extends Controller
             $servicos = Servico::where('cliente_id', $id)
             ->where('company_id', Auth::user()->company_id)
             ->where('status', 1)
-            ->get();
+            ->paginate(10);
     
         return view('clientes.edit_clientes', compact('cliente', 'servicos'));
     }

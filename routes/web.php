@@ -12,6 +12,8 @@ use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\GerenteController;
 use App\Models\Contrato;
+use App\Http\Controllers\PagamentoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -62,12 +64,13 @@ Route::middleware(['auth'])->group(function () {
 
 // Servicos
 Route::middleware(['auth'])->group(function () {
-    Route::get('/servicos', [ServicoController::class, 'showServicos'])->name('servicos');
+    Route::get('/servicos', [ServicoController::class, 'showServicos'])->name('servicos.index');
     Route::get('/servicos/create', [ServicoController::class, 'showCreateServico'])->name('servicos.create.form');
     Route::post('/servicos/create', [ServicoController::class, 'createServico'])->name('servicos.create');
     Route::get('/servicos/edit/{id}', [ServicoController::class, 'showEditServico'])->name('servicos.edit');
     Route::put('/servicos/update/{id}', [ServicoController::class, 'editServico'])->name('servicos.update');
     Route::delete('/servicos/delete/{id}', [ServicoController::class, 'deleteServico'])->name('servicos.delete');    
+    Route::get('/servicos/{servico}/logs', [ServicoController::class, 'showServicoLogs'])->name('servicos.logs');
 });
 
 // Contratos
@@ -82,9 +85,14 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/cadastro/companhia', [CompanyController::class, 'showCompanyForm'])->name('cadastro.companhia');
 Route::post('/cadastro/companhia', [CompanyController::class, 'store'])->name('companies.store');
 
+// Pagamento
+Route::get('/company/payment', [PagamentoController::class, 'showPix'])->name('company.payment');
+Route::post('/company/confirm', [PagamentoController::class, 'confirmarPagamento'])->name('company.confirm');
+
 // Gerente 
 Route::middleware(['auth'])->group(function () {
     Route::post('/company/upload-logo', [GerenteController::class, 'uploadLogo'])->name('gerente.uploadLogo');
+    Route::post('/company/usuario', [GerenteController::class, 'createUsuarioGerente'])->name('gerente.criarUsuario');
     Route::get('/gerente', [GerenteController::class, 'showUsersCompany'])->name('gerente.index');
     Route::get('/gerente/logs/{userId}', [GerenteController::class, 'showLogUser'])->name('gerente.logUsuario');
     Route::put('/gerente/{user}', [GerenteController::class, 'updatePasswordForUser'])->name('gerente.senha.atualizar');

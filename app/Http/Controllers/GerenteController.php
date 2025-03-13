@@ -87,6 +87,30 @@ class GerenteController extends Controller
                 'code' => 500
             ], 500);
         }
-    }       
+    }
+
+    public function createUsuarioGerente(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
+            'acesso_id' => 'required|integer|exists:niveis_acesso,id',
+        ]);
+    
+        try {
+            User::create([
+                'company_id' =>Auth::user()->company_id,
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'acesso_id' => $request->input('acesso_id'),
+            ]);
+    
+            return redirect()->with('success', 'Usuário criado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao criar usuário. Tente novamente.');
+        }
+    }    
 
 }

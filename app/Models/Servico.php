@@ -40,7 +40,8 @@ class Servico extends Model
         'status',
         'prioridade_id',
         'dt_chamado',
-        'statusPagamento'
+        'statusPagamento',
+        'tecnico_id',
     ];
 
     /**
@@ -63,11 +64,19 @@ class Servico extends Model
     }
 
     /**
-     * Relacionamento: Um serviço pertence a um usuário.
+     * Relacionamento: O serviço foi criado por um usuário.
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Relacionamento: O serviço é de responsabilidade de um técnico.
+     */
+    public function tecnico()
+    {
+        return $this->belongsTo(User::class, 'tecnico_id');
     }
 
     /**
@@ -94,7 +103,7 @@ class Servico extends Model
         return $this->belongsTo(User::class, 'editado_por');
     }
 
-        /**
+    /**
      * Relacionamento: Um serviço pode ter uma prioridade.
      */
     public function prioridade()

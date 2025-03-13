@@ -12,13 +12,18 @@
     <div class="mt-1 mb-3 gap-2 d-flex flex-column">
         <strong>Cliente: {{ $servico->cliente->nome }}</strong>
         
-        @if (!$servico->editado_por)
-            <small>Criado por {{ $servico->user->name }} em {{ formatarDataHora($servico->created_at) }}</small>
-        @else
-            <small>Editado por {{ $servico->editor->name }} em {{ formatarDataHora($servico->updated_at) }}</small>
-        @endif
-    </div>
+        <div class="d-flex flex-row gap-2 align-items-center"> 
+            @if (!$servico->editado_por)
+                <small>Criado por {{ $servico->user->name }} em {{ formatarDataHora($servico->created_at) }}</small>
+            @else
+                <small>Editado por {{ $servico->editor->name }} em {{ formatarDataHora($servico->updated_at) }}</small>
+            @endif
 
+            <a href="{{ route('servicos.logs', $servico->id) }}" class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                <i class="bi bi-clock-history"></i>
+            </a>
+        </div>
+    </div>
 
     <form action="{{ route('servicos.update', $servico->id) }}" method="POST">
         @csrf
@@ -66,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2 mt-3">
+            <div class="col-md-1 mt-3">
                 <div class="form-group">
                     <label for="finalizado" class="mb-2">Finalizado</label>
                     <select name="finalizado" id="finalizado" class="form-control fw-bold" onchange="atualizarCor(this)" disabled>
@@ -76,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2 mt-3">
+            <div class="col-md-1 mt-3">
                 <div class="form-group">
                     <label for="statusPagamento" class="mb-2">Pago</label>
                     <select name="statusPagamento" id="statusPagamento" class="form-control fw-bold" onchange="atualizarCor(this)" disabled>
@@ -86,6 +91,17 @@
                 </div>
             </div>
 
+            <div class="col-md-3 mt-3">
+                <div class="form-group">
+                    <label for="tecnico_id" class="mb-2">Técnico</label>
+                    <select name="tecnico_id" id="tecnico_id" class="form-control fw-bold" onchange="atualizarCor(this)" disabled>
+                        <option value="0">Sem Técnico</option>
+                        @foreach ($tecnicos as $tecnico)
+                            <option value="{{ $tecnico->id }}" {{ $servico->tecnico_id == $tecnico->id ? 'selected' : '' }}>{{ $tecnico->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
 
         <div class="d-flex flex-row gap-3 mt-3">
             <button type="button" onclick="goBack()" class="btn btn-secondary">Voltar</button>
@@ -131,6 +147,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="d-flex justify-content-center">
+            {{ $contratos->links('vendor.pagination.bootstrap-4') }}
+        </div>
     @endif
 
 @endsection
@@ -144,18 +164,21 @@
     }
 
     function atualizarCor(select) {
-    if (select.value == "1") {
-        select.classList.remove("text-danger");
-        select.classList.add("text-success");
-    } else {
-        select.classList.remove("text-success");
-        select.classList.add("text-danger");
-    }
+        if (select.value >= "1") {
+            select.classList.remove("text-danger");
+            select.classList.add("text-success");
+        } else {
+            select.classList.remove("text-success");
+            select.classList.add("text-danger");
+        }
     }
 
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll("select").forEach(select => atualizarCor(select));
     });
 
+    function goBack() {
+        window.history.back();
+    }
 </script>
 @endsection

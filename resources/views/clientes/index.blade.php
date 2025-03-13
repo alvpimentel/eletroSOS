@@ -26,6 +26,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th>CPF</th>
                     <th>Email</th>
                     <th>Telefone</th>
                     <th>Ações</th>
@@ -36,6 +37,7 @@
                     <tr>
                         <td>{{ $cliente->id }}</td>
                         <td>{{ $cliente->nome }}</td>
+                        <td>{{ $cliente->cpf ? $cliente->cpf : $cliente->cnpj }}</td>
                         <td>{{ $cliente->email }}</td>
                         <td>{{ $cliente->telefone }}</td>
                         <td>
@@ -47,6 +49,10 @@
                 @endforeach
             </tbody>
         </table>
+
+<!--         <div class="d-flex justify-content-center">
+            {{ $clientes->links('vendor.pagination.bootstrap-4') }}
+        </div> -->
     @endif
 
 @endsection

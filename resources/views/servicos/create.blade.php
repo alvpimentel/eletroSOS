@@ -49,38 +49,52 @@
         </div>
 
         <div class="row mb-4">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="descricao" class="mb-2">Descrição</label>
-                    <textarea rows="5" name="descricao" id="descricao" class="form-control" required></textarea>
-                </div>
-                @error('descricao')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="descricao" class="mb-2">Descrição</label>
+                <textarea rows="5" name="descricao" id="descricao" class="form-control" required></textarea>
             </div>
+            @error('descricao')
+                <div class="text-danger mt-1">{{ $message }}</div>
+            @enderror
+        </div>
 
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="dt_chamado" class="mb-2">Data</label>
-                    <input type="date" name="dt_chamado" id="dt_chamado" class="form-control" required>
-                </div>
-                @error('dt_chamado') 
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="dt_chamado" class="mb-2">Data</label>
+                <input type="date" name="dt_chamado" id="dt_chamado" class="form-control" required>
             </div>
+            @error('dt_chamado') 
+                <div class="text-danger mt-1">{{ $message }}</div>
+            @enderror
 
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="prioridade_id" class="mb-2">Prioridade</label>
-                    <select name="prioridade_id" id="prioridade_id" class="form-control">
-                        <option value="">Selecione a Prioridade</option>
-                        @foreach ($prioridades as $prioridade)
-                            <option value="{{ $prioridade->id }}">{{ $prioridade->nome }}</option>
-                        @endforeach
-                    </select>
-                </div>
+            <!-- Dropdown de Técnico -->
+            <div class="form-group mt-3">
+                <label for="tecnico_id" class="mb-2">Técnico</label>
+                <select name="tecnico_id" id="tecnico_id" class="form-control">
+                    <option value="">Sem técnico</option>
+                    @foreach ($tecnicos as $tecnico)
+                        <option value="{{ $tecnico->id }}">{{ $tecnico->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            @error('tecnico_id')
+                <div class="text-danger mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="prioridade_id" class="mb-2">Prioridade</label>
+                <select name="prioridade_id" id="prioridade_id" class="form-control">
+                    <option value="">Selecione a Prioridade</option>
+                    @foreach ($prioridades as $prioridade)
+                        <option value="{{ $prioridade->id }}">{{ $prioridade->nome }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
+    </div>
 
         <div class="d-flex flex-row gap-3 mt-4">
             <button onclick="goBack();" class="btn btn-secondary">Voltar</button>

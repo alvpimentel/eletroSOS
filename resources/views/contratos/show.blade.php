@@ -119,8 +119,6 @@
 </html>
 <script>
 function gerarContrato() {
-    alert('começou');
-    
     // Pega o conteúdo HTML da div .contract-container
     let contratoHtml = document.querySelector('.contract-container').innerHTML;
     
